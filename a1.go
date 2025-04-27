@@ -5,6 +5,7 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"strings"
 
 	"github.com/disintegration/imaging"
 )
@@ -14,20 +15,32 @@ import (
 var formatfoto = []string{"jpg", "jpeg", "png", "gif", "bmp", "tiff", "webp", "heif", "heic", "raw", "dng", "psd", "avif", "ico", "cur", "pcx", "ppm", "pgm", "pbm", "pgf", "xcf", "svg"}
 var th = "."
 
-func main() {
+func formatF() {
 
 	// Генерируем случайное число от 0 до 99
 	randomInt := rand.Intn(99999999)
 	randomIntStr := fmt.Sprintf("%d", randomInt)
-	fmt.Println(randomIntStr)
+	//fmt.Println(randomIntStr)
 
+	fmt.Println("введите имя файла")
+
+	var ext0 string
+	fmt.Scan(&ext0)
+
+	strings.Split(ext0, ".")
+	if len(ext0) < 2 {
+		log.Panic("ошибка")
+	}
 	//проверяем формат файла
-	var q = []string{"png"}
+	var q = []string{string(ext0[1])}
 	// Проверяем, есть ли общие элементы
-	fmt.Println(hasCommonElement(q, formatfoto)) // Вывод: true
+	var q1 = (hasCommonElement(q, formatfoto)) // Вывод: true
+	if q1 == false {
+		log.Panic("неверный формат файла")
+	}
 
 	// Открываем изображение
-	img, err := imaging.Open("ф.png")
+	img, err := imaging.Open(ext0)
 	if err != nil {
 		log.Fatalf("Ошибка при открытии изображения: %v", err)
 	}
@@ -38,10 +51,8 @@ func main() {
 	err = imaging.Save(img, "conwert"+randomIntStr+th+ext)
 	if err != nil {
 		log.Fatalf("Ошибка при сохранении изображения: %v", err)
-	} else {
-		os.Remove("inp.jpg")
-
 	}
+	os.Remove(ext0)
 }
 
 // Функция для проверки совпадений
@@ -54,4 +65,13 @@ func hasCommonElement(slice1, slice2 []string) bool {
 		}
 	}
 	return false
+}
+func ImF() {
+
+}
+func VVF() {
+
+}
+func ic() {
+
 }
